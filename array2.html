@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+
+<body>
+	<script>
+		//3. 判断数组是否为对称数组，对称数组形式如：[a, b, c, b, a]、[a, b, c, c, b, a]。
+
+		var arr1 = ['a', 'b', 'c', 'd', 'c', 'b', 'a'];	
+		var arr2 = ['a', 'b', 'c', 'c', 'b', 'a'];
+		var arr3 = ['a', 'b', 'c', 'a', 'b', 'c'];
+
+		//普通方法
+		function symmetry(arr){
+			var newArr=[];	//复制用户传进来的数组
+			for(var i=0;i<arr.length;i++){
+				newArr.push(arr[i]);
+			}
+			newArr.reverse();	//把数组颠倒过来，如果倒过来的数组里的每一个数据与原数据依然相同的话，就证明这是一个对称数组
+
+			for(var i=0;i<newArr.length;i++){
+				if(newArr[i]!=arr[i]){
+					//这个条件成立说明找到了一个不等的数据 
+					return false;
+					break;
+				}
+			}
+			return true;
+		}
+		console.log(symmetry(arr2));
+		
+
+		//使用算法
+		function symmetry(arr){
+			var low=0;	//第一个数据的索引
+			var high=arr.length-1;	//最后一个数据的索引
+
+			for(var i=0;i<arr.length;i++){
+				/*
+					low++;	//它要加
+					high-- 	//它要减
+				 */
+				/* if(arr[low++]!=arr[high--]){
+					//如果这个条件成立说明数组里有一个数据是不对称的
+					return false;
+				} */
+
+				if(arr[i]!=arr[arr.length-1-i]){
+					return false;
+				}
+			}
+			return true;	//能走到这的时候说明所有的数据都是一一对应的，这个数组就是一个对称数组
+		}
+		//console.log(symmetry(arr1),symmetry(arr2),symmetry(arr3));
+
+
+		function symmetry(arr){
+			var low=0;
+			var high=arr.length-1;
+
+			while(true){
+				/*
+					1、这里分别处理了奇数与偶数的情况
+					2、如果为奇数的话，low与high相等的时候，就已经找到最后一个了。如果再走一次，low就大于high了。此时就要跳出循环了（当前那次还要走，过了当前那就不能再走了）
+					3、如果为偶数的话，low与high挨着的时候，就已经找到最后一个了。如果再走一次，low就等于high了。此时就要跳出循环了 
+				 */
+				if(low>=high){
+					break;
+				}
+				if(arr[low]!=arr[high]){
+					return false;
+				}
+
+				low++;
+				high--;
+			}
+
+			return true;
+		}
+		console.log(symmetry(arr1),symmetry(arr2),symmetry(arr3));
+	</script>
+</body>
+
+</html>
